@@ -2,16 +2,26 @@ import numpy as np
 import pandas as pd
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from liver_data import Liver
 import joblib
 
 
 app = FastAPI()
+origins = ['*']
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 classifier = joblib.load('finalized_model.sav')
 
 
 @app.post('/predict_liver')
-def predict_diabetes(data:Liver):
+def predict_liver(data:Liver):
     data = data.dict()
     Age = data['Age']
     Gender = data['Gender']
