@@ -33,8 +33,8 @@ def predict_liver(data:Liver):
     prediction = classifier.predict_proba(cols)
     
     if(prediction[0][0]<0.5):
-        prediction="NO chances of getting Liver disease"
+        prediction="No chances of getting Liver disease"
     else:
-        prediction="YOU have chances of getting Liver disease"
+        prediction="You have high chances of getting Liver disease"
     return {'prediction': prediction}
 
